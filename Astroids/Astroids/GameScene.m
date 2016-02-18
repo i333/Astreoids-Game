@@ -8,11 +8,15 @@
 
 #import "GameScene.h"
 #import "JCButton.h"
+#import "Bullet.h"
+#import "CGVectorAdditions.h"
 
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
+    
+    self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     
     [self createAndDisplayShip];
     [self createAndDisplayControls];
@@ -53,7 +57,7 @@
         self.rightButton.zPosition = 100;
         [self addChild: self.rightButton];
 
-        SKAction *movementDelay = [SKAction waitForDuration: 0.1f];
+        SKAction *movementDelay = [SKAction waitForDuration: MOVEMENT_DELAY];
         SKAction *checkMovementButtons = [SKAction runBlock:^{
             [self movementHandlers];
         }];
@@ -70,7 +74,7 @@
         self.shootButton.zPosition = 100;
         [self addChild: self.shootButton];
     
-        SKAction *shootingDelay = [SKAction waitForDuration:0.3f];
+        SKAction *shootingDelay = [SKAction waitForDuration: SHOOTING_DELAY];
         SKAction *checkShootingButton = [SKAction runBlock:^{
             [self shootingHandler];
         }];
@@ -98,7 +102,17 @@
 
 - (void) shootBullet
 {
+    //self.spaceship.frame.origin.x
     
+    CGVector shipDir = CGConvertAngleToVector(self.spaceship.zRotation);
+    
+    CGPoint startPos = CGPointMake(self.spaceship.position.x + shipDir.dx,
+                                   self.spaceship.position.y + shipDir.dy);
+    
+    Bullet* bullet = [[Bullet alloc] initWith: startPos
+                                    direction: shipDir];
+    
+    [self addChild: bullet];
 }
 
 - (void) shootingHandler
@@ -114,10 +128,6 @@
     if(self.spaceship != nil){
         
         if(self.thrustButton.wasPressed){
-            
-        }
-        
-        if(self.shootButton.wasPressed){
             
         }
         

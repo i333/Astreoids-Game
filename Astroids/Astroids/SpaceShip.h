@@ -10,7 +10,7 @@
 
 @interface Spaceship : SKShapeNode
 
-- (id) initShip;
+- (id) initShipWithSize: (CGFloat) shipSize;
 
 @property (nonatomic) CGSize size;
 

@@ -10,12 +10,12 @@
 
 @implementation Spaceship
 
--(id) initShip
+-(id) initShipWithSize: (CGFloat) shipSize
 {
     if((self = [super init]))
     {
         // size
-        self.size = CGSizeMake(20, 20);
+        self.size = CGSizeMake(shipSize, shipSize);
         
         // stroke
         self.strokeColor = [SKColor redColor];
@@ -31,7 +31,8 @@
         self.path = pathToDraw;
         
         // physics
-        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius: self.size.width/2];
+        //self.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath: pathToDraw];
+        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius: self.size.width / 2];
         self.physicsBody.usesPreciseCollisionDetection = YES;
         self.physicsBody.collisionBitMask = 0;
         

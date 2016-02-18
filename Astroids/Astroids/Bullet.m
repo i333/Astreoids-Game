@@ -35,6 +35,7 @@
             self.path = pathToDraw;
             
             // physics
+            //self.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath: pathToDraw];
             self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1.0f];
             self.physicsBody.usesPreciseCollisionDetection = YES;
             self.physicsBody.categoryBitMask = bulletCategory;

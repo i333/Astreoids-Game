@@ -95,7 +95,7 @@
 
 - (void) createAndDisplayShip
 {
-    self.spaceship = [[Spaceship alloc] initShip];
+    self.spaceship = [[Spaceship alloc] initShipWithSize: 20.0];
     [self.spaceship setPosition:CGPointMake(self.size.width/2,self.size.height/2)];
     [self addChild: self.spaceship];
 }

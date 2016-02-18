@@ -38,24 +38,35 @@
 - (void) createAndDisplayControls
 {
     
-        self.leftButton = [[JCButton alloc] initWithButtonRadius: 25
+        self.leftButton = [[JCButton alloc] initWithButtonRadius: 30
                                                           color: [SKColor redColor]
                                                    pressedColor: [SKColor blueColor]
                                                         isTurbo: NO
                                                     isRapidFire: YES];
-        [self.leftButton setPosition:CGPointMake( (self.size.width / 8), (self.size.height / 5) )];
+        [self.leftButton setPosition:CGPointMake( (self.size.width / 23), (self.size.height / 5) )];
         self.leftButton.zPosition = 100;
         [self addChild: self.leftButton];
         
         
-        self.rightButton = [[JCButton alloc] initWithButtonRadius: 25
+        self.rightButton = [[JCButton alloc] initWithButtonRadius: 30
                                                             color: [SKColor redColor]
                                                      pressedColor: [SKColor blueColor]
                                                           isTurbo: NO
                                                       isRapidFire: YES];
-        [self.rightButton setPosition:CGPointMake( (self.size.width / 23) , (self.size.height / 5) )];
+        [self.rightButton setPosition:CGPointMake( (self.size.width / 8) , (self.size.height / 5) )];
         self.rightButton.zPosition = 100;
         [self addChild: self.rightButton];
+    
+        self.thrustButton = [[JCButton alloc] initWithButtonRadius: 30
+                                                             color: [SKColor redColor]
+                                                      pressedColor: [SKColor blueColor]
+                                                           isTurbo: NO
+                                                       isRapidFire: YES];
+    
+        [self.thrustButton setPosition:CGPointMake( (self.size.width - (self.size.width / 20))  , (self.size.height / 4) )];
+        self.thrustButton.zPosition = 100;
+        [self addChild: self.thrustButton];
+    
 
         SKAction *movementDelay = [SKAction waitForDuration: MOVEMENT_DELAY];
         SKAction *checkMovementButtons = [SKAction runBlock:^{
@@ -65,12 +76,12 @@
         SKAction *checkMovementAction = [SKAction sequence:@[movementDelay,checkMovementButtons]];
         [self runAction:[SKAction repeatActionForever:checkMovementAction]];
     
-        self.shootButton = [[JCButton alloc] initWithButtonRadius: 25
+        self.shootButton = [[JCButton alloc] initWithButtonRadius: 30
                                                             color: [SKColor redColor]
                                                      pressedColor: [SKColor blueColor]
                                                           isTurbo: NO
                                                       isRapidFire: YES];
-        [self.shootButton setPosition:CGPointMake( (self.size.width - (self.size.width / 16))  , (self.size.height / 5) )];
+        [self.shootButton setPosition:CGPointMake( (self.size.width - (self.size.width / 8))  , (self.size.height / 5) )];
         self.shootButton.zPosition = 100;
         [self addChild: self.shootButton];
     
@@ -81,7 +92,7 @@
         
         SKAction *checkShootingAction = [SKAction sequence:@[shootingDelay,checkShootingButton]];
         [self runAction:[SKAction repeatActionForever:checkShootingAction]];
-    
+        
         /**self.joystick = [[JCJoystick alloc] initWithControlRadius: 25
                                                            baseRadius: 25
                                                             baseColor: [SKColor redColor]

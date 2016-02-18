@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06B27DE01C74DF750013FA00 /* Spaceship.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DDF1C74DF750013FA00 /* Spaceship.m */; };
+		06B27DE81C75367C0013FA00 /* JCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DE71C75367C0013FA00 /* JCButton.m */; };
+		06B27DEB1C7537CC0013FA00 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DEA1C7537CC0013FA00 /* JCJoystick.m */; };
 		3C5B67931C72573B00517DB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B67921C72573B00517DB0 /* main.m */; };
 		3C5B67961C72573B00517DB0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B67951C72573B00517DB0 /* AppDelegate.m */; };
 		3C5B67991C72573B00517DB0 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B67981C72573B00517DB0 /* GameScene.m */; };
@@ -37,6 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06B27DDE1C74DF750013FA00 /* Spaceship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spaceship.h; sourceTree = "<group>"; };
+		06B27DDF1C74DF750013FA00 /* Spaceship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spaceship.m; sourceTree = "<group>"; };
+		06B27DE61C75367B0013FA00 /* JCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCButton.h; sourceTree = "<group>"; };
+		06B27DE71C75367C0013FA00 /* JCButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCButton.m; sourceTree = "<group>"; };
+		06B27DE91C7537CB0013FA00 /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJoystick.h; sourceTree = "<group>"; };
+		06B27DEA1C7537CC0013FA00 /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJoystick.m; sourceTree = "<group>"; };
 		3C5B678E1C72573B00517DB0 /* Astroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Astroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C5B67921C72573B00517DB0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3C5B67941C72573B00517DB0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -108,11 +117,17 @@
 			children = (
 				3C5B67941C72573B00517DB0 /* AppDelegate.h */,
 				3C5B67951C72573B00517DB0 /* AppDelegate.m */,
-				3C5B67971C72573B00517DB0 /* GameScene.h */,
-				3C5B67981C72573B00517DB0 /* GameScene.m */,
-				3C5B679A1C72573B00517DB0 /* GameScene.sks */,
+				06B27DE91C7537CB0013FA00 /* JCJoystick.h */,
+				06B27DEA1C7537CC0013FA00 /* JCJoystick.m */,
+				06B27DE61C75367B0013FA00 /* JCButton.h */,
+				06B27DE71C75367C0013FA00 /* JCButton.m */,
 				3C5B679C1C72573B00517DB0 /* GameViewController.h */,
 				3C5B679D1C72573B00517DB0 /* GameViewController.m */,
+				3C5B679A1C72573B00517DB0 /* GameScene.sks */,
+				3C5B67971C72573B00517DB0 /* GameScene.h */,
+				3C5B67981C72573B00517DB0 /* GameScene.m */,
+				06B27DDE1C74DF750013FA00 /* Spaceship.h */,
+				06B27DDF1C74DF750013FA00 /* Spaceship.m */,
 				3C5B679F1C72573B00517DB0 /* Main.storyboard */,
 				3C5B67A21C72573B00517DB0 /* Assets.xcassets */,
 				3C5B67A41C72573B00517DB0 /* LaunchScreen.storyboard */,
@@ -278,10 +293,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06B27DE81C75367C0013FA00 /* JCButton.m in Sources */,
 				3C5B679E1C72573B00517DB0 /* GameViewController.m in Sources */,
+				06B27DE01C74DF750013FA00 /* Spaceship.m in Sources */,
 				3C5B67961C72573B00517DB0 /* AppDelegate.m in Sources */,
 				3C5B67991C72573B00517DB0 /* GameScene.m in Sources */,
 				3C5B67931C72573B00517DB0 /* main.m in Sources */,
+				06B27DEB1C7537CC0013FA00 /* JCJoystick.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +527,7 @@
 				3C5B67C21C72573B00517DB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C5B67C31C72573B00517DB0 /* Build configuration list for PBXNativeTarget "AstroidsTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +536,7 @@
 				3C5B67C51C72573B00517DB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C5B67C61C72573B00517DB0 /* Build configuration list for PBXNativeTarget "AstroidsUITests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +545,7 @@
 				3C5B67C81C72573B00517DB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -139,7 +139,10 @@
     if(self.spaceship != nil){
         
         if(self.thrustButton.wasPressed){
+            CGVector shipDir = CGConvertAngleToVector(self.spaceship.zRotation);
             
+            [self.spaceship.physicsBody applyImpulse:
+             CGVectorMultiplyByScalar(shipDir, THRUST_SPEED)];
         }
         
         if (self.leftButton.wasPressed) {

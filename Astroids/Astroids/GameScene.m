@@ -89,10 +89,36 @@
         SKAction *checkShootingButton = [SKAction runBlock:^{
             [self shootingHandler];
         }];
-        
+        SKAction *teleportDelay = [SKAction waitForDuration: TELEPORT_DELAY];
         SKAction *checkShootingAction = [SKAction sequence:@[shootingDelay,checkShootingButton]];
         [self runAction:[SKAction repeatActionForever:checkShootingAction]];
+    
+    SKAction *checkBorderInterception = [SKAction runBlock:^{
+        if (self.spaceship.frame.origin.x> self.size.width){
+            
+            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x-self.size.width,self.spaceship.frame.origin.y)];
+        }
+//       else if (self.spaceship.frame.origin.x< self.size.width){
+//            
+//            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x+self.size.width,self.spaceship.frame.origin.y)];
+//        }
+
         
+        if (self.spaceship.frame.origin.y> self.size.height){
+            
+            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x,self.spaceship.frame.origin.y-self.spaceship.frame.origin.y)];
+        }
+//       else if (self.spaceship.frame.origin.y< self.size.height){
+//            
+//            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x,self.spaceship.frame.origin.y+self.spaceship.frame.origin.y)];
+//        }
+//        
+    }];
+    SKAction *checkTeleportAction = [SKAction sequence:@[teleportDelay,checkBorderInterception]];
+    [self runAction:[SKAction repeatActionForever:checkTeleportAction]];
+    
+       // SKAction *checkBorderIntersection = [SKAction sequence:@[shootingDelay,checkShootingButton]];
+       // [self runAction:[SKAction repeatActionForever:checkShootingAction]];
         /**self.joystick = [[JCJoystick alloc] initWithControlRadius: 25
                                                            baseRadius: 25
                                                             baseColor: [SKColor redColor]
@@ -109,6 +135,8 @@
     self.spaceship = [[Spaceship alloc] initShipWithSize: 20.0];
     [self.spaceship setPosition:CGPointMake(self.size.width/2,self.size.height/2)];
     [self addChild: self.spaceship];
+    
+   
 }
 
 - (void) shootBullet

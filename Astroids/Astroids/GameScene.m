@@ -98,21 +98,21 @@
             
             [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x-self.size.width,self.spaceship.frame.origin.y)];
         }
-//       else if (self.spaceship.frame.origin.x< self.size.width){
-//            
-//            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x+self.size.width,self.spaceship.frame.origin.y)];
-//        }
+       else if (self.spaceship.frame.origin.x< 0){
+            
+            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x+self.size.width,self.spaceship.frame.origin.y)];
+        }
 
         
         if (self.spaceship.frame.origin.y> self.size.height){
             
-            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x,self.spaceship.frame.origin.y-self.spaceship.frame.origin.y)];
+            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x,self.spaceship.frame.origin.y-self.size.height)];
         }
-//       else if (self.spaceship.frame.origin.y< self.size.height){
-//            
-//            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x,self.spaceship.frame.origin.y+self.spaceship.frame.origin.y)];
-//        }
-//        
+    if (self.spaceship.frame.origin.y< 0){
+            
+            [ self.spaceship setPosition:CGPointMake(self.spaceship.frame.origin.x,self.spaceship.frame.origin.y+self.size.height)];
+        }
+        
     }];
     SKAction *checkTeleportAction = [SKAction sequence:@[teleportDelay,checkBorderInterception]];
     [self runAction:[SKAction repeatActionForever:checkTeleportAction]];

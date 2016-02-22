@@ -121,6 +121,11 @@
             CGFloat randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (1.5f) + 1.5f;
             CGFloat randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (1.5f) + 1.5f;
             
+            if(shotAsteroid.size == 2){
+                randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (2.5f) + 3.5f;
+                randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (2.5f) + 3.5f;
+            }
+            
             CGVector aImpulse1 = CGVectorMultiplyByScalar(vecPerp, randSpeed1);
             CGVector aImpulse2 = CGVectorMultiplyByScalar(vecPerp, -randSpeed2);
             
@@ -130,7 +135,7 @@
             Asteroid* smallerAsteroid1 = [[Asteroid alloc] initWith: 0 size: shotAsteroid.size - 1 position: pos1];
             [self.asteroidArr addObject: smallerAsteroid1];
             [self addChild: smallerAsteroid1];
-            [smallerAsteroid1.physicsBody applyImpulse:aImpulse1];
+            [smallerAsteroid1.physicsBody applyImpulse: aImpulse1];
             
             Asteroid* smallerAsteroid2 = [[Asteroid alloc] initWith: 0 size: shotAsteroid.size - 1 position: pos2];
             [self.asteroidArr addObject: smallerAsteroid2];
@@ -354,6 +359,14 @@
         [asteroid.physicsBody applyImpulse: impulse];
         
     }
+    
+    //For testing
+    /**CGPoint pos = CGPointMake(300, 500);
+    
+    Asteroid* asteroid = [[Asteroid alloc] initWith: 0
+                                               size: 2
+                                           position: pos];
+    [self addChild: asteroid];**/
 }
 
 @end

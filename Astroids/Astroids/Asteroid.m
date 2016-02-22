@@ -36,9 +36,41 @@
         self.lineWidth = 3;
         
         // PATH
-        CGMutablePathRef circlePath = CGPathCreateMutable();
-        CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(-self.radius, -self.radius, self.radius*2, self.radius*2) );
-        self.path = circlePath;
+        CGMutablePathRef pathToDraw = CGPathCreateMutable();
+        CGPathMoveToPoint(pathToDraw, NULL, self.radius / 4, 0);
+        CGPathAddLineToPoint(pathToDraw, NULL, self.radius, -(self.radius / 2));
+        
+        CGPathMoveToPoint(pathToDraw, NULL, self.radius, -(self.radius / 2));
+        CGPathAddLineToPoint(pathToDraw, NULL, (3 * self.radius / 2), 0);
+        
+        CGPathMoveToPoint(pathToDraw, NULL, (3 * self.radius / 2), 0);
+        CGPathAddLineToPoint(pathToDraw, NULL, 2 * self.radius, -(self.radius / 2));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL, 2 * self.radius, -(self.radius / 2));
+        CGPathAddLineToPoint(pathToDraw, NULL, (7 * self.radius / 4), -(self.radius));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL, (7 * self.radius / 4), -(self.radius));
+        CGPathAddLineToPoint(pathToDraw, NULL, 2 * self.radius, -(5 * self.radius / 4));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL, 2 * self.radius, -(5 * self.radius / 4));
+        CGPathAddLineToPoint(pathToDraw, NULL, (4 * self.radius/ 3), -(2 * self.radius));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL, (4 * self.radius/ 3), -(2 * self.radius));
+        CGPathAddLineToPoint(pathToDraw, NULL, self.radius / 4, -(2 * self.radius));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL, self.radius / 4, -(2 * self.radius));
+        CGPathAddLineToPoint(pathToDraw, NULL, 0, -(5 * self.radius / 4));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL,  0, -(5 * self.radius / 4));
+        CGPathAddLineToPoint(pathToDraw, NULL, 0, -(self.radius / 4));
+        
+        CGPathMoveToPoint(pathToDraw,  NULL,   0, -(self.radius / 4));
+        CGPathAddLineToPoint(pathToDraw, NULL, self.radius / 4, 0);
+        
+        //CGMutablePathRef circlePath = CGPathCreateMutable();
+        //CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius) );
+        
+        self.path = pathToDraw;
         
         // PHYSICS
         //self.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath: pathToDraw];

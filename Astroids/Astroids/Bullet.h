@@ -17,4 +17,4 @@
 
 @end
 
-static const CGFloat BULLET_SPEED = 45.0f;
+static const CGFloat BULLET_SPEED = 50.0f;

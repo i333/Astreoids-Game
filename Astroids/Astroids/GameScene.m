@@ -6,8 +6,9 @@
 //  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 //
 
-#define RAND_FROM_TO(min, max) (min + arc4random_uniform(max - min + 1))
 #define ARC4RANDOM_MAX 0x100000000
+#define RAND_FROM_TO(min, max) (min + arc4random_uniform(max - min + 1))
+#define RANDF(min, max) (((float)arc4random() / ARC4RANDOM_MAX) * (max - min) + min);
 
 #import "GameScene.h"
 #import "JCButton.h"
@@ -49,12 +50,6 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     /* Called before each frame is rendered */
     //self.spaceship.zRotation = self.joystick.angle;
     //NSLog(@"update");
-    for(Asteroid *asteroid in self.asteroidArr){
-        CGVector asteroidDir = CGConvertAngleToVector(asteroid.zRotation);
-        //[asteroid.physicsBody applyImpulse:
-         //CGVectorMultiplyByScalar(asteroidDir, ASTEROID_SPEED)];
-        
-    }
 }
 
 - (void) didBeginContact:(SKPhysicsContact *)contact
@@ -123,16 +118,23 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
             CGPoint pos1 = CGPointMake(shotAsteroid.position.x + vecPerp.dx * fragDist, shotAsteroid.position.y + vecPerp.dy * fragDist);
             CGPoint pos2 = CGPointMake(shotAsteroid.position.x - vecPerp.dx * fragDist, shotAsteroid.position.y - vecPerp.dy * fragDist);
             
-            CGFloat randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 2.0f;
-            CGFloat randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 2.0f;
+            CGFloat randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (0.7f) + 0.3f;
+            CGFloat randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (0.7f) + 0.3f;
             
-            if(shotAsteroid.size == 2){
-                randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 4.0f;
-                randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 4.0f;
-            }
+            CGFloat randAngle1 = RANDF(0.0, 3.1);
+            CGFloat randAngle2 = RANDF(0.0, 3.1);
             
-            CGVector aImpulse1 = CGVectorMultiplyByScalar(vecPerp, randSpeed1);
-            CGVector aImpulse2 = CGVectorMultiplyByScalar(vecPerp, -randSpeed2);
+            CGFloat sign1 = arc4random() % 2 ? 1.0 : -1.0;
+            CGFloat sign2 = arc4random() % 2 ? 1.0 : -1.0;
+            
+            CGVector randVec1 = CGConvertAngleToVector(sign1 * randAngle1);
+            CGVector randVec2 = CGConvertAngleToVector(sign2 * randAngle2);
+            
+            CGVector aImpulse1 = CGVectorMultiplyByScalar(randVec1, randSpeed1);
+            CGVector aImpulse2 = CGVectorMultiplyByScalar(randVec2, -randSpeed2);
+            
+            //CGVector aImpulse1 = CGVectorMultiplyByScalar(vecPerp, randSpeed1);
+            //CGVector aImpulse2 = CGVectorMultiplyByScalar(vecPerp, -randSpeed2);
             
             //NSLog(@"aImpulse1: (%0.2f,%0.2f)", aImpulse1.dx, aImpulse1.dy);
             //NSLog(@"aImpulse2: (%0.2f,%0.2f)", aImpulse2.dx, aImpulse2.dy);
@@ -334,11 +336,13 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
         }
         
         if (self.leftButton.wasPressed) {
+            //NSLog(@"ship rotation: %f", self.spaceship.zRotation);
             SKAction *action = [SKAction rotateByAngle:0.2 duration:0.1];
             [self.spaceship runAction:[SKAction repeatAction:action count:1]];
         }
         
         if (self.rightButton.wasPressed) {
+            //NSLog(@"ship rotation: %f", self.spaceship.zRotation);
             SKAction *action = [SKAction rotateByAngle:-0.2 duration:0.1];
             [self.spaceship runAction:[SKAction repeatAction:action count:1]];
         }

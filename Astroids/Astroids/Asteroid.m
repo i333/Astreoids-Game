@@ -18,13 +18,13 @@
         // VARIABLES
         switch(sizeVal){
             case ASTEROID_SMALL:
-                self.radius = 10;
+                self.radius = 15;
                 break;
             case ASTEROID_MED:
-                self.radius = 25;
+                self.radius = 30;
                 break;
             case ASTEROID_LARGE:
-                self.radius = 50;
+                self.radius = 60;
                 break;
         }
         self.type = type;
@@ -33,48 +33,50 @@
         
         // STROKE
         self.strokeColor = [SKColor whiteColor];
-        self.lineWidth = 3;
+        self.lineWidth = 2;
         
         // PATH
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        CGPathMoveToPoint(pathToDraw, NULL, self.radius / 4, 0);
-        CGPathAddLineToPoint(pathToDraw, NULL, self.radius, -(self.radius / 2));
+        CGPathMoveToPoint(pathToDraw, NULL, -(3 * self.radius / 4) , (5 * self.radius / 6));
+        CGPathAddLineToPoint(pathToDraw, NULL, 0, (2 * self.radius / 3));
         
-        CGPathMoveToPoint(pathToDraw, NULL, self.radius, -(self.radius / 2));
-        CGPathAddLineToPoint(pathToDraw, NULL, (3 * self.radius / 2), 0);
+        CGPathMoveToPoint(pathToDraw, NULL, 0, (2 * self.radius / 3));
+        CGPathAddLineToPoint(pathToDraw, NULL, self.radius / 2, (5 * self.radius / 6));
         
-        CGPathMoveToPoint(pathToDraw, NULL, (3 * self.radius / 2), 0);
-        CGPathAddLineToPoint(pathToDraw, NULL, 2 * self.radius, -(self.radius / 2));
+        CGPathMoveToPoint(pathToDraw, NULL, self.radius / 2, (5 * self.radius / 6));
+        CGPathAddLineToPoint(pathToDraw, NULL, (3 * self.radius / 4), (2 * self.radius / 3));
         
-        CGPathMoveToPoint(pathToDraw,  NULL, 2 * self.radius, -(self.radius / 2));
-        CGPathAddLineToPoint(pathToDraw, NULL, (7 * self.radius / 4), -(self.radius));
+        CGPathMoveToPoint(pathToDraw, NULL, (3 * self.radius / 4), (2 * self.radius / 3));
+        CGPathAddLineToPoint(pathToDraw, NULL, 2 * self.radius / 3, (self.radius / 6));
         
-        CGPathMoveToPoint(pathToDraw,  NULL, (7 * self.radius / 4), -(self.radius));
-        CGPathAddLineToPoint(pathToDraw, NULL, 2 * self.radius, -(5 * self.radius / 4));
+        CGPathMoveToPoint(pathToDraw, NULL, 2 * self.radius / 3, (self.radius / 6));
+        CGPathAddLineToPoint(pathToDraw, NULL, (5 * self.radius / 6), (-self.radius / 4));
         
-        CGPathMoveToPoint(pathToDraw,  NULL, 2 * self.radius, -(5 * self.radius / 4));
-        CGPathAddLineToPoint(pathToDraw, NULL, (4 * self.radius/ 3), -(2 * self.radius));
+        CGPathMoveToPoint(pathToDraw, NULL, (5 * self.radius / 6), (-self.radius / 4));
+        CGPathAddLineToPoint(pathToDraw, NULL, 2 * self.radius / 3, -(3 * self.radius / 4));
         
-        CGPathMoveToPoint(pathToDraw,  NULL, (4 * self.radius/ 3), -(2 * self.radius));
-        CGPathAddLineToPoint(pathToDraw, NULL, self.radius / 4, -(2 * self.radius));
+        CGPathMoveToPoint(pathToDraw, NULL, 2 * self.radius / 3, -(3 * self.radius / 4));
+        CGPathAddLineToPoint(pathToDraw, NULL, self.radius / 2, -(5 * self.radius / 6));
         
-        CGPathMoveToPoint(pathToDraw,  NULL, self.radius / 4, -(2 * self.radius));
-        CGPathAddLineToPoint(pathToDraw, NULL, 0, -(5 * self.radius / 4));
+        CGPathMoveToPoint(pathToDraw, NULL, self.radius / 2, -(5 * self.radius / 6));
+        CGPathAddLineToPoint(pathToDraw, NULL, -(self.radius / 2), -(5 * self.radius / 6));
         
-        CGPathMoveToPoint(pathToDraw,  NULL,  0, -(5 * self.radius / 4));
-        CGPathAddLineToPoint(pathToDraw, NULL, 0, -(self.radius / 4));
+        CGPathMoveToPoint(pathToDraw, NULL, -(self.radius / 2), -(5 * self.radius / 6));
+        CGPathAddLineToPoint(pathToDraw, NULL, -(3 * self.radius / 4), -(self.radius / 2));
         
-        CGPathMoveToPoint(pathToDraw,  NULL,   0, -(self.radius / 4));
-        CGPathAddLineToPoint(pathToDraw, NULL, self.radius / 4, 0);
+        CGPathMoveToPoint(pathToDraw, NULL, -(3 * self.radius / 4), -(self.radius / 2));
+        CGPathAddLineToPoint(pathToDraw, NULL, -self.radius, 0);
         
-        //CGMutablePathRef circlePath = CGPathCreateMutable();
-        //CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius) );
+        CGPathMoveToPoint(pathToDraw, NULL,  -self.radius, 0);
+        CGPathAddLineToPoint(pathToDraw, NULL, -(3 * self.radius / 4) , (5 * self.radius / 6));
+
+        
+        //CGPathAddEllipseInRect(pathToDraw , NULL , CGRectMake(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius) );
         
         self.path = pathToDraw;
         
         // PHYSICS
-        //self.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath: pathToDraw];
-        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.radius];
+        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius: self.radius];
         self.physicsBody.friction = 0.0f; // need this to float
         self.physicsBody.linearDamping = 0.0f;
         self.physicsBody.angularDamping = 0.0f;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 //
 
+#define RAND_FROM_TO(min, max) (min + arc4random_uniform(max - min + 1))
 #define ARC4RANDOM_MAX 0x100000000
 
 #import "GameScene.h"
@@ -17,6 +18,8 @@
 
 @implementation GameScene
 
+static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
+
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -27,9 +30,11 @@
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     
+    self.asteroidArr = [NSMutableArray array];
+    
     [self createAndDisplayShip];
     [self createAndDisplayControls];
-    [self createAsteroids: INIT_NUM_ASTEROIDS];
+    [self createAsteroids: numAsteroidsToCreate];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -102,7 +107,7 @@
     (contact.bodyA.categoryBitMask & shipCategory) != 0;
     
     if(asteroidType1Collision || asteroidType2Collision){
-        NSLog(@"Shot asteroid");
+        //NSLog(@"Shot asteroid");
 
         Asteroid* shotAsteroid = (Asteroid*)  (asteroidType1Collision ? contact.bodyA.node : contact.bodyB.node);
         
@@ -118,12 +123,12 @@
             CGPoint pos1 = CGPointMake(shotAsteroid.position.x + vecPerp.dx * fragDist, shotAsteroid.position.y + vecPerp.dy * fragDist);
             CGPoint pos2 = CGPointMake(shotAsteroid.position.x - vecPerp.dx * fragDist, shotAsteroid.position.y - vecPerp.dy * fragDist);
             
-            CGFloat randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (1.5f) + 1.5f;
-            CGFloat randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (1.5f) + 1.5f;
+            CGFloat randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 2.0f;
+            CGFloat randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 2.0f;
             
             if(shotAsteroid.size == 2){
-                randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (2.5f) + 3.5f;
-                randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (2.5f) + 3.5f;
+                randSpeed1 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 4.0f;
+                randSpeed2 = ((double)arc4random() / ARC4RANDOM_MAX) * (3.0f) + 4.0f;
             }
             
             CGVector aImpulse1 = CGVectorMultiplyByScalar(vecPerp, randSpeed1);
@@ -147,14 +152,16 @@
     
         [self removeChildrenInArray:[NSArray arrayWithObjects: contact.bodyA.node, contact.bodyB.node, nil]];
         
+        NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]);
         if([self.asteroidArr count] == 0){
-            //[self createAsteroids: INIT_NUM_ASTEROIDS];
+            numAsteroidsToCreate++;
+            [self createAsteroids: numAsteroidsToCreate];
         }
         
     }
     
     if(asteroidType3Collision || asteroidType4Collision){
-        NSLog(@"Spaceship crashed");
+        //NSLog(@"Spaceship crashed");
         
         [self removeChildrenInArray:[NSArray arrayWithObject: self.spaceship]];
         self.spaceship = nil;
@@ -277,6 +284,18 @@
 {
     self.spaceship = [[Spaceship alloc] initShipWithSize: 20.0];
     [self.spaceship setPosition:CGPointMake(self.size.width/2,self.size.height/2)];
+    for(Asteroid *asteroid in self.asteroidArr){
+        if([self.spaceship intersectsNode: asteroid]){
+            [NSTimer scheduledTimerWithTimeInterval: 0.5f
+                                             target: self
+                                           selector: @selector(createAndDisplayShip)
+                                           userInfo: nil
+                                            repeats: NO];
+            self.spaceship = nil;
+            return;
+        }
+        
+    }
     [self addChild: self.spaceship];
 }
 
@@ -346,7 +365,13 @@
         int ypos = arc4random_uniform(100) < 50 ? ypos1 : ypos2;
         CGPoint pos = CGPointMake(xpos, ypos);
         
-        CGVector impulse = CGVectorMake(arc4random_uniform(50), arc4random_uniform(50));
+        int randx = RAND_FROM_TO(10, 50);
+        int randy = RAND_FROM_TO(10, 50);
+        
+        int signx = arc4random() % 2 ? 1 : -1;
+        int signy = arc4random() % 2 ? 1 : -1;
+        
+        CGVector impulse = CGVectorMake(signx * randx, signy * randy);
         
         //NSLog(@"Asteroid Position: (%0.2f,%0.2f)",pos.x,pos.y);
         //NSLog(@"Asteroid impulse: (%0.2f,%0.2f)",impulse.dx,impulse.dy);

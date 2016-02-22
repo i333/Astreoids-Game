@@ -32,7 +32,6 @@
         self.path = pathToDraw;
         
         // PHYSICS
-        //self.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath: pathToDraw];
         self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius: self.size.width / 2];
         self.physicsBody.usesPreciseCollisionDetection = YES;
         // wrap around screen

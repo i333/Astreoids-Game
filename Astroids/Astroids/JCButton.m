@@ -47,7 +47,6 @@
         CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(self.position.x-self.buttonRadius, self.position.y-self.buttonRadius, self.buttonRadius*2, self.buttonRadius*2) );
         self.path = circlePath;
         self.fillColor =  self.color;
-        self.lineWidth = 3;
         CGPathRelease( circlePath );
     }
     return self;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0694F9561C796D1D008528B6 /* Asteroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0694F9551C796D1D008528B6 /* Asteroid.m */; };
 		06B27DE01C74DF750013FA00 /* Spaceship.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DDF1C74DF750013FA00 /* Spaceship.m */; };
 		06B27DE81C75367C0013FA00 /* JCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DE71C75367C0013FA00 /* JCButton.m */; };
 		06B27DEB1C7537CC0013FA00 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DEA1C7537CC0013FA00 /* JCJoystick.m */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0694F9541C796D1D008528B6 /* Asteroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asteroid.h; sourceTree = "<group>"; };
+		0694F9551C796D1D008528B6 /* Asteroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asteroid.m; sourceTree = "<group>"; };
 		06B27DDE1C74DF750013FA00 /* Spaceship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spaceship.h; sourceTree = "<group>"; };
 		06B27DDF1C74DF750013FA00 /* Spaceship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spaceship.m; sourceTree = "<group>"; };
 		06B27DE61C75367B0013FA00 /* JCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCButton.h; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				06B27DDF1C74DF750013FA00 /* Spaceship.m */,
 				06B27DFF1C75753D0013FA00 /* Bullet.h */,
 				06B27E001C75753E0013FA00 /* Bullet.m */,
+				0694F9541C796D1D008528B6 /* Asteroid.h */,
+				0694F9551C796D1D008528B6 /* Asteroid.m */,
 				3C5B679F1C72573B00517DB0 /* Main.storyboard */,
 				3C5B67A21C72573B00517DB0 /* Assets.xcassets */,
 				3C5B67A41C72573B00517DB0 /* LaunchScreen.storyboard */,
@@ -306,6 +311,7 @@
 				3C5B679E1C72573B00517DB0 /* GameViewController.m in Sources */,
 				06B27DE01C74DF750013FA00 /* Spaceship.m in Sources */,
 				06B27E011C75753E0013FA00 /* Bullet.m in Sources */,
+				0694F9561C796D1D008528B6 /* Asteroid.m in Sources */,
 				3C5B67961C72573B00517DB0 /* AppDelegate.m in Sources */,
 				3C5B67991C72573B00517DB0 /* GameScene.m in Sources */,
 				3C5B67931C72573B00517DB0 /* main.m in Sources */,

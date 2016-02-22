@@ -189,7 +189,7 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
                                                    size: 2
                                                position: pos];
         
-        CGFloat randRotation = RANDF(0.0, 3.1);
+        CGFloat randRotation = RANDF(0.0, 2 * M_PI);
         CGFloat zsign = arc4random() % 2 ? 1.0 : -1.0;
         asteroid.zRotation = zsign * randRotation;
         
@@ -301,8 +301,8 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
             CGFloat randSpeed1 = RANDF(minSpeed, maxSpeed);
             CGFloat randSpeed2 = RANDF(minSpeed, maxSpeed);
             
-            CGFloat randAngle1 = RANDF(0.0, 3.1);
-            CGFloat randAngle2 = RANDF(0.0, 3.1);
+            CGFloat randAngle1 = RANDF(0.0, 2 * M_PI);
+            CGFloat randAngle2 = RANDF(0.0, 2 * M_PI);
             
             CGFloat sign1 = arc4random() % 2 ? 1.0 : -1.0;
             CGFloat sign2 = arc4random() % 2 ? 1.0 : -1.0;

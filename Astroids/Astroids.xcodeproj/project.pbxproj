@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0625AC851C7B0F3C0083A5DE /* LifeIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625AC841C7B0F390083A5DE /* LifeIcon.m */; };
+		0625AC881C7B13610083A5DE /* Explosion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625AC871C7B13610083A5DE /* Explosion.m */; };
 		0694F9561C796D1D008528B6 /* Asteroid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0694F9551C796D1D008528B6 /* Asteroid.m */; };
+		0694F95C1C7AF65E008528B6 /* Hyperspace.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0694F95B1C7AF65C008528B6 /* Hyperspace.otf */; };
+		0694F9601C7AFA9D008528B6 /* asteroids_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0694F95F1C7AFA9D008528B6 /* asteroids_logo.png */; };
 		06B27DE01C74DF750013FA00 /* Spaceship.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DDF1C74DF750013FA00 /* Spaceship.m */; };
 		06B27DE81C75367C0013FA00 /* JCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DE71C75367C0013FA00 /* JCButton.m */; };
 		06B27DEB1C7537CC0013FA00 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B27DEA1C7537CC0013FA00 /* JCJoystick.m */; };
@@ -42,8 +46,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0625AC831C7B0F390083A5DE /* LifeIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeIcon.h; sourceTree = "<group>"; };
+		0625AC841C7B0F390083A5DE /* LifeIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeIcon.m; sourceTree = "<group>"; };
+		0625AC861C7B13610083A5DE /* Explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Explosion.h; sourceTree = "<group>"; };
+		0625AC871C7B13610083A5DE /* Explosion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Explosion.m; sourceTree = "<group>"; };
 		0694F9541C796D1D008528B6 /* Asteroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asteroid.h; sourceTree = "<group>"; };
 		0694F9551C796D1D008528B6 /* Asteroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asteroid.m; sourceTree = "<group>"; };
+		0694F95B1C7AF65C008528B6 /* Hyperspace.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Hyperspace.otf; sourceTree = "<group>"; };
+		0694F95F1C7AFA9D008528B6 /* asteroids_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroids_logo.png; sourceTree = "<group>"; };
 		06B27DDE1C74DF750013FA00 /* Spaceship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spaceship.h; sourceTree = "<group>"; };
 		06B27DDF1C74DF750013FA00 /* Spaceship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spaceship.m; sourceTree = "<group>"; };
 		06B27DE61C75367B0013FA00 /* JCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCButton.h; sourceTree = "<group>"; };
@@ -142,6 +152,12 @@
 				06B27E001C75753E0013FA00 /* Bullet.m */,
 				0694F9541C796D1D008528B6 /* Asteroid.h */,
 				0694F9551C796D1D008528B6 /* Asteroid.m */,
+				0625AC861C7B13610083A5DE /* Explosion.h */,
+				0625AC871C7B13610083A5DE /* Explosion.m */,
+				0625AC831C7B0F390083A5DE /* LifeIcon.h */,
+				0625AC841C7B0F390083A5DE /* LifeIcon.m */,
+				0694F95B1C7AF65C008528B6 /* Hyperspace.otf */,
+				0694F95F1C7AFA9D008528B6 /* asteroids_logo.png */,
 				3C5B679F1C72573B00517DB0 /* Main.storyboard */,
 				3C5B67A21C72573B00517DB0 /* Assets.xcassets */,
 				3C5B67A41C72573B00517DB0 /* LaunchScreen.storyboard */,
@@ -280,6 +296,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C5B679B1C72573B00517DB0 /* GameScene.sks in Resources */,
+				0694F9601C7AFA9D008528B6 /* asteroids_logo.png in Resources */,
+				0694F95C1C7AF65E008528B6 /* Hyperspace.otf in Resources */,
 				3C5B67A61C72573B00517DB0 /* LaunchScreen.storyboard in Resources */,
 				3C5B67A31C72573B00517DB0 /* Assets.xcassets in Resources */,
 				3C5B67A11C72573B00517DB0 /* Main.storyboard in Resources */,
@@ -311,6 +329,8 @@
 				3C5B679E1C72573B00517DB0 /* GameViewController.m in Sources */,
 				06B27DE01C74DF750013FA00 /* Spaceship.m in Sources */,
 				06B27E011C75753E0013FA00 /* Bullet.m in Sources */,
+				0625AC881C7B13610083A5DE /* Explosion.m in Sources */,
+				0625AC851C7B0F3C0083A5DE /* LifeIcon.m in Sources */,
 				0694F9561C796D1D008528B6 /* Asteroid.m in Sources */,
 				3C5B67961C72573B00517DB0 /* AppDelegate.m in Sources */,
 				3C5B67991C72573B00517DB0 /* GameScene.m in Sources */,

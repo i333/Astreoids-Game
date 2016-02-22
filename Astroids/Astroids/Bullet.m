@@ -14,27 +14,27 @@
 -(id) initWith:(CGPoint) pos direction:(CGVector) dir {
     if((self = [super init]))
     {
-        // VARIABLES
+        //----------------------------VARIABLES---------------------------------
         self.direction = CGVectorNormalize(dir);
         self.position = pos;
         
-        // ACTIONS
+        //----------------------------ACTIONS---------------------------------
         SKAction *moveBullet = [SKAction moveBy: CGVectorMultiplyByScalar(dir, BULLET_SPEED)
                                        duration: 1 ];
         
         [self runAction:[SKAction repeatActionForever: moveBullet]];
         
-        // STROKE
+        //----------------------------STROKE---------------------------------
         self.strokeColor = [SKColor whiteColor];
-        self.lineWidth = 3;
+        self.lineWidth = 2;
         
-        // PATH
+        //----------------------------PATH---------------------------------
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
         CGPathMoveToPoint(pathToDraw, NULL, 0.0f, 0.0f);
         CGPathAddLineToPoint(pathToDraw, NULL, dir.dx, dir.dy);
         self.path = pathToDraw;
         
-        // PHYSICS
+        //----------------------------PHYSICS---------------------------------
         self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1.0f];
         self.physicsBody.usesPreciseCollisionDetection = YES;
         self.physicsBody.categoryBitMask = bulletCategory;

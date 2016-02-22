@@ -15,22 +15,30 @@
 
 // Objects
 @property (strong, nonatomic) Spaceship* spaceship;
-@property(strong, nonatomic) NSMutableArray *asteroidArr;
+@property(strong, nonatomic) NSMutableArray* asteroidArr;
 
 // Controls
-@property (strong, nonatomic) JCButton *shootButton;
-@property (strong, nonatomic) JCButton *thrustButton;
+@property (strong, nonatomic) JCButton* shootButton;
+@property (strong, nonatomic) JCButton* thrustButton;
 
-@property (strong, nonatomic) JCButton *leftButton;
-@property (strong, nonatomic) JCButton *rightButton;
+@property (strong, nonatomic) JCButton* leftButton;
+@property (strong, nonatomic) JCButton* rightButton;
 
-@property (strong, nonatomic) JCJoystick *joystick;
+// Game
+@property (nonatomic) long playerScore;
+@property (nonatomic) int numLives;
+
+// Labels
+@property (strong, nonatomic) SKLabelNode* scoreLabel;
+@property(strong, nonatomic) NSMutableArray* lifeIcons;
 
 @end
 
 static const int BUTTON_SIZE = 35;
+static const int SHIP_SIZE = 20;
 
 static const int INIT_NUM_ASTEROIDS = 1;
+static const int INIT_NUM_LIVES = 4;
 
 static const CGFloat MOVEMENT_DELAY = 0.1f;
 static const CGFloat SHOOTING_DELAY = 0.3f;

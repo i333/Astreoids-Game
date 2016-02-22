@@ -12,6 +12,10 @@
 #define ASTEROID_MED 1
 #define ASTEROID_LARGE 2
 
+#define TYPE_ONE 0
+#define TYPE_TWO 1
+#define TYPE_THREE 2
+
 @interface Asteroid : SKShapeNode
 
 - (id) initWith: (int) type size: (int) sizeVal position: (CGPoint) pos;

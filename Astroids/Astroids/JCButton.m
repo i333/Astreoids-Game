@@ -43,6 +43,7 @@
         self.isDown = NO;
         self.isRapidFire = isRapid;
         [self setUserInteractionEnabled:YES];
+        self.lineWidth = 2;
         CGMutablePathRef circlePath = CGPathCreateMutable();
         CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(self.position.x-self.buttonRadius, self.position.y-self.buttonRadius, self.buttonRadius*2, self.buttonRadius*2) );
         self.path = circlePath;

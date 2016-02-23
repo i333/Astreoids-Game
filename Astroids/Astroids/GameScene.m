@@ -64,7 +64,6 @@ static BOOL _DEBUG = NO;
     
     self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Hyperspace"];
     highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScore"];
-    NSLog(@"%ld", (long)highScore);
     if (highScore < 0){
         highScore = 0;
     }
@@ -98,6 +97,8 @@ static BOOL _DEBUG = NO;
 
 -(void) startGameButtonClicked:(UIButton*)sender
 {
+    [self runAction:[SKAction playSoundFileNamed:@"beat1.wav" waitForCompletion:NO]];
+    
     self.startGameButton.hidden = true;
     
     [self removeAllChildren];
@@ -260,9 +261,9 @@ static BOOL _DEBUG = NO;
     }
     
     //For testing
-    /**CGPoint pos = CGPointMake(300, 500);
+    /**CGPoint pos = CGPointMake(150, 400);
      
-     Asteroid* asteroid = [[Asteroid alloc] initWith: 1
+     Asteroid* asteroid = [[Asteroid alloc] initWith: 2
      size: 2
      position: pos];
      [self addChild: asteroid];**/
@@ -409,6 +410,9 @@ static BOOL _DEBUG = NO;
     
     if(asteroidType3Collision || asteroidType4Collision) {
         if(_DEBUG) { NSLog(@"Spaceship crashed"); }
+        
+        [self runAction:[SKAction playSoundFileNamed:@"bangSmall.wav" waitForCompletion:NO]];
+        
         if(self.spaceship != nil){
         
             self.numLives--;
@@ -431,6 +435,8 @@ static BOOL _DEBUG = NO;
                                                userInfo: nil
                                                 repeats: NO];
             } else{
+                [self runAction:[SKAction playSoundFileNamed:@"beat2.wav" waitForCompletion:NO]];
+                
                 if (self.playerScore > highScore){
                     
                     [[NSUserDefaults standardUserDefaults] setInteger: self.playerScore forKey:@"HighScore"];
@@ -461,6 +467,8 @@ static BOOL _DEBUG = NO;
     if(self.spaceship != nil) {
         
         if(self.thrustButton.wasPressed) {
+            [self runAction:[SKAction playSoundFileNamed:@"thrust.wav" waitForCompletion:NO]];
+            
             CGVector shipDir = CGConvertAngleToVector(self.spaceship.zRotation);
             
             [self.spaceship.physicsBody applyImpulse:
@@ -484,6 +492,8 @@ static BOOL _DEBUG = NO;
 
 - (void) shootBullet
 {
+    [self runAction:[SKAction playSoundFileNamed:@"fire.wav" waitForCompletion:NO]];
+    
     CGVector shipDir = CGConvertAngleToVector(self.spaceship.zRotation);
     
     CGPoint startPos = CGPointMake(self.spaceship.position.x + shipDir.dx,
@@ -511,13 +521,18 @@ static BOOL _DEBUG = NO;
 
 - (void) updateScore: (int) asteroidSize {
     if(asteroidSize == ASTEROID_SMALL){
+        [self runAction:[SKAction playSoundFileNamed:@"bangSmall.wav" waitForCompletion:NO]];
         self.playerScore += ASTEROID_SMALL_VALUE;
     }else if(asteroidSize == ASTEROID_MED){
+        [self runAction:[SKAction playSoundFileNamed:@"bangMedium.wav" waitForCompletion:NO]];
         self.playerScore += ASTEROID_MED_VALUE;
     }else if(asteroidSize == ASTEROID_LARGE){
+        [self runAction:[SKAction playSoundFileNamed:@"bangLarge.wav" waitForCompletion:NO]];
         self.playerScore += ASTEROID_LARGE_VALUE;
     }
     if(self.playerScore > extraLifeThreshold){
+        [self runAction:[SKAction playSoundFileNamed:@"extraShip.wav" waitForCompletion:NO]];
+        
         extraLifeThreshold += EXTRA_LIFE_THRESHOLD;
         [self addLife];
     }

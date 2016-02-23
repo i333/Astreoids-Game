@@ -13,8 +13,7 @@
 
 -(id) initShipWithSize: (CGFloat) shipSize
 {
-    if((self = [super init]))
-    {
+    if((self = [super init])) {
         //----------------------------SIZE---------------------------------
         self.size = CGSizeMake(shipSize, shipSize);
         

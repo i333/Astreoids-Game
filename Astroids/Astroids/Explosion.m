@@ -12,8 +12,7 @@
 
 -(id) initWithSize: (CGFloat) size
 {
-    if((self = [super init]))
-    {
+    if((self = [super init])) {
         
         self.size = CGSizeMake(size, size);
         
@@ -38,12 +37,12 @@
 - (void) reDraw {
     self.size = CGSizeMake(self.size.width+1, self.size.height+1);
     
-    if(self.size.width < 50){
+    if(self.size.width < 50) {
         
         CGMutablePathRef circlePath = CGPathCreateMutable();
         CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(-self.size.width/2, -self.size.height/2, self.size.width, self.size.height) );
         self.path = circlePath;
-    } else {
+    }else {
         self.path = nil;
     }
 }

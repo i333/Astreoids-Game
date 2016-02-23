@@ -47,14 +47,11 @@ static BOOL _DEBUG = NO;
 
 - (void) initializeGame
 {
-    if(!self.asteroidArr){
+    if(!self.asteroidArr) {
         self.asteroidArr = [NSMutableArray array];
     }
     self.playerScore = 0;
     self.numLives = INIT_NUM_LIVES;
-}
-
-- (void) update:(NSTimeInterval)currentTime {
 }
 
 -(void)showMenuScreen
@@ -69,7 +66,7 @@ static BOOL _DEBUG = NO;
     
     self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Hyperspace"];
     highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScore"];
-    if (highScore < 0){
+    if (highScore < 0) {
         highScore = 0;
     }
     NSString* highScoreString = [@(highScore) stringValue];
@@ -130,7 +127,7 @@ static BOOL _DEBUG = NO;
     self.scoreLabel.position = CGPointMake(self.size.width / 4, (53 * self.size.height / 64));
     [self addChild: self.scoreLabel];
     
-    if(!self.lifeIcons){
+    if(!self.lifeIcons) {
         self.lifeIcons = [NSMutableArray array];
     }
     for(int i = 0; i < self.numLives; i++) {
@@ -268,14 +265,6 @@ static BOOL _DEBUG = NO;
         [asteroid.physicsBody applyImpulse: impulse];
         
     }
-    
-    //For testing
-    /**CGPoint pos = CGPointMake(150, 400);
-     
-     Asteroid* asteroid = [[Asteroid alloc] initWith: 2
-     size: 2
-     position: pos];
-     [self addChild: asteroid];**/
 }
 
 - (void) createWrappingBorders
@@ -422,7 +411,7 @@ static BOOL _DEBUG = NO;
         
         [self runAction:[SKAction playSoundFileNamed:@"bangSmall.wav" waitForCompletion:NO]];
         
-        if(self.spaceship != nil){
+        if(self.spaceship != nil) {
         
             self.numLives--;
             if([self.lifeIcons count]  > 0){
@@ -443,8 +432,8 @@ static BOOL _DEBUG = NO;
                                                selector: @selector(createAndDisplayShip)
                                                userInfo: nil
                                                 repeats: NO];
-            } else{
-                if (self.playerScore > highScore){
+            }else {
+                if (self.playerScore > highScore) {
                     
                     [[NSUserDefaults standardUserDefaults] setInteger: self.playerScore forKey:@"HighScore"];
                     
@@ -532,18 +521,19 @@ static BOOL _DEBUG = NO;
     [self addChild:border];
 }
 
-- (void) updateScore: (int) asteroidSize {
-    if(asteroidSize == ASTEROID_SMALL){
+- (void) updateScore: (int) asteroidSize
+{
+    if(asteroidSize == ASTEROID_SMALL) {
         [self runAction:[SKAction playSoundFileNamed:@"bangSmall.wav" waitForCompletion:NO]];
         self.playerScore += ASTEROID_SMALL_VALUE;
-    }else if(asteroidSize == ASTEROID_MED){
+    }else if(asteroidSize == ASTEROID_MED) {
         [self runAction:[SKAction playSoundFileNamed:@"bangMedium.wav" waitForCompletion:NO]];
         self.playerScore += ASTEROID_MED_VALUE;
-    }else if(asteroidSize == ASTEROID_LARGE){
+    }else if(asteroidSize == ASTEROID_LARGE) {
         [self runAction:[SKAction playSoundFileNamed:@"bangLarge.wav" waitForCompletion:NO]];
         self.playerScore += ASTEROID_LARGE_VALUE;
     }
-    if(self.playerScore > extraLifeThreshold){
+    if(self.playerScore > extraLifeThreshold) {
         [self runAction:[SKAction playSoundFileNamed:@"extraShip.wav" waitForCompletion:NO]];
         
         extraLifeThreshold += EXTRA_LIFE_THRESHOLD;
@@ -552,7 +542,8 @@ static BOOL _DEBUG = NO;
     [self displayScore];
 }
 
-- (void) addLife {
+- (void) addLife
+{
     self.numLives++;
     LifeIcon* icon = [[LifeIcon alloc] initIconWithSize: (3 * SHIP_SIZE / 4)];
     icon.position = CGPointMake((7 * self.size.width / 32) + ([self.lifeIcons count] - 1) * SHIP_SIZE, (52 * self.size.height / 64));
@@ -560,7 +551,8 @@ static BOOL _DEBUG = NO;
     [self addChild: icon];
 }
 
-- (void) displayScore {
+- (void) displayScore
+{
     self.scoreLabel.text = [NSString stringWithFormat:@"%ld", self.playerScore];
 }
 

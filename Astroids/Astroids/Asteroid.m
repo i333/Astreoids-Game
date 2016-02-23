@@ -13,10 +13,9 @@
 
 - (id) initWith: (int) type size: (int) sizeVal position: (CGPoint) pos
 {
-    if((self = [super init]))
-    {
+    if((self = [super init])) {
         //--------------------------------------VARIABLES---------------------------------
-        switch(sizeVal){
+        switch(sizeVal) {
             case ASTEROID_SMALL:
                 self.radius = 15;
                 break;
@@ -38,7 +37,7 @@
         //------------------------------------------PATH--------------------------------------------
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
         
-        if(self.type == TYPE_ONE){
+        if(self.type == TYPE_ONE) {
             CGPathMoveToPoint(pathToDraw, NULL, -(3 * self.radius / 4) , (5 * self.radius / 6));
             CGPathAddLineToPoint(pathToDraw, NULL, 0, (2 * self.radius / 3));
             
@@ -72,7 +71,7 @@
             CGPathMoveToPoint(pathToDraw, NULL,  -self.radius, 0);
             CGPathAddLineToPoint(pathToDraw, NULL, -(3 * self.radius / 4) , (5 * self.radius / 6));
             
-        }else if(self.type == TYPE_TWO){
+        }else if(self.type == TYPE_TWO) {
             CGPathMoveToPoint(pathToDraw, NULL, -self.radius , self.radius / 3);
             CGPathAddLineToPoint(pathToDraw, NULL, -(self.radius / 2), (5 * self.radius / 6));
             
@@ -106,7 +105,7 @@
             CGPathMoveToPoint(pathToDraw, NULL,  -(3 * self.radius / 4), (self.radius / 6));
             CGPathAddLineToPoint(pathToDraw, NULL,  -self.radius , self.radius / 3);
             
-        }else if(self.type == TYPE_THREE){
+        }else if(self.type == TYPE_THREE) {
             CGPathMoveToPoint(pathToDraw, NULL, -self.radius , self.radius / 3);
             CGPathAddLineToPoint(pathToDraw, NULL, -(self.radius / 2), (5 * self.radius / 6));
             
@@ -140,7 +139,7 @@
             CGPathMoveToPoint(pathToDraw, NULL,  -self.radius, 0);
             CGPathAddLineToPoint(pathToDraw, NULL, -self.radius , self.radius / 3);
             
-        }else{
+        }else {
             CGPathAddEllipseInRect(pathToDraw , NULL , CGRectMake(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius) );
         }
         

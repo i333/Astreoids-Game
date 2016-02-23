@@ -12,8 +12,7 @@
 
 -(id) initIconWithSize: (CGFloat) iconSize
 {
-    if((self = [super init]))
-    {
+    if((self = [super init])) {
         //----------------------------SIZE---------------------------------
         self.size = CGSizeMake(iconSize, iconSize);
         

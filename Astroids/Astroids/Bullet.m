@@ -12,8 +12,7 @@
 
 @implementation Bullet
 -(id) initWith:(CGPoint) pos direction:(CGVector) dir {
-    if((self = [super init]))
-    {
+    if((self = [super init])) {
         //----------------------------VARIABLES---------------------------------
         self.direction = CGVectorNormalize(dir);
         self.position = pos;

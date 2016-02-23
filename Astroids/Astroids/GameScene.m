@@ -6,6 +6,10 @@
 //  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 //
 
+#define ASTEROID_SMALL 0
+#define ASTEROID_MED 1
+#define ASTEROID_LARGE 2
+
 #define ARC4RANDOM_MAX 0x100000000
 #define RAND_FROM_TO(min, max) (min + arc4random_uniform(max - min + 1))
 #define RANDF(min, max) (((float)arc4random() / ARC4RANDOM_MAX) * (max - min) + min);
@@ -21,7 +25,12 @@
 
 @implementation GameScene
 
+static NSInteger highScore;
+
 static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
+static long extraLifeThreshold = EXTRA_LIFE_THRESHOLD;
+
+static BOOL _DEBUG = NO;
 
 -(void)didMoveToView:(SKView *)view
 {
@@ -30,20 +39,8 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     self.physicsWorld.contactDelegate = self;
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     
-    [self initializeGame];
-    
-    [self createWrappingBorders];
-    
-    [self createAndDisplayLabels];
-    [self createAndDisplayControls];
-    
-    [self createAndDisplayShip];
-    [self createAsteroids: numAsteroidsToCreate];
-}
-
--(void)update:(CFTimeInterval)currentTime
-{
-    //NSLog(@"update");
+    [self createStartGameButton];
+    [self showMenuScreen];
 }
 
 //====================================INITIALIZATION==============================================
@@ -55,6 +52,67 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     self.numLives = INIT_NUM_LIVES;
 }
 
+-(void)showMenuScreen
+{
+    
+    self.nameLabel = [SKLabelNode labelNodeWithFontNamed:@"Hyperspace"];
+    self.nameLabel.text = @"ASTEROIDS";
+    self.nameLabel.fontSize = 100;
+    self.nameLabel.fontColor = [SKColor whiteColor];
+    self.nameLabel.position = CGPointMake(self.size.width / 2, (2 * self.size.height / 3));
+    [self addChild: self.nameLabel];
+    
+    self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Hyperspace"];
+    highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScore"];
+    NSLog(@"%ld", (long)highScore);
+    if (highScore < 0){
+        highScore = 0;
+    }
+    NSString* highScoreString = [@(highScore) stringValue];
+    NSString *labelString = @"High Score: ";
+    labelString = [labelString stringByAppendingString:highScoreString];
+    self.highScoreLabel.text = labelString;
+    self.highScoreLabel.fontSize = 35;
+    self.highScoreLabel.fontColor = [SKColor whiteColor];
+    self.highScoreLabel.position = CGPointMake(self.size.width / 2, (self.size.height / 3));
+    [self addChild:  self.highScoreLabel];
+    
+    [self createWrappingBorders];
+    [self createAsteroids: MENU_NUM_ASTEROIDS];
+    
+}
+
+- (void) createStartGameButton
+{
+    self.startGameButton = [[UIButton alloc] initWithFrame: CGRectMake(self.size.width / 5, self.size.height / 4, 300, 60)];
+    self.startGameButton.titleLabel.font = [UIFont fontWithName:@"Hyperspace" size: 35];
+    
+    [self.startGameButton addTarget: self
+                             action: @selector(startGameButtonClicked:)
+                   forControlEvents: UIControlEventTouchUpInside];
+    [self.startGameButton setTitle: @"Play Game" forState: UIControlStateNormal];
+    [self.startGameButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+    
+    [[self view] addSubview:self.startGameButton];
+}
+
+-(void) startGameButtonClicked:(UIButton*)sender
+{
+    self.startGameButton.hidden = true;
+    
+    [self removeAllChildren];
+    
+    [self createWrappingBorders];
+    
+    [self initializeGame];
+    
+    [self createAndDisplayLabels];
+    [self createAndDisplayControls];
+    
+    [self createAndDisplayShip];
+    [self createAsteroids: numAsteroidsToCreate];
+}
+
 - (void) createAndDisplayLabels
 {
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Hyperspace"];
@@ -64,8 +122,8 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     self.scoreLabel.position = CGPointMake(self.size.width / 4, (53 * self.size.height / 64));
     [self addChild: self.scoreLabel];
     
+    self.lifeIcons = [NSMutableArray array];
     for(int i = 0; i < self.numLives; i++) {
-        self.lifeIcons = [NSMutableArray array];
         LifeIcon* icon = [[LifeIcon alloc] initIconWithSize: (3 * SHIP_SIZE / 4)];
         icon.position = CGPointMake((7 * self.size.width / 32) + i * SHIP_SIZE, (52 * self.size.height / 64));
         [self.lifeIcons addObject: icon];
@@ -182,8 +240,10 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
         
         CGVector impulse = CGVectorMake(signx * randx, signy * randy);
         
-        //NSLog(@"Asteroid Position: (%0.2f,%0.2f)",pos.x,pos.y);
-        //NSLog(@"Asteroid impulse: (%0.2f,%0.2f)",impulse.dx,impulse.dy);
+        if(_DEBUG){
+            NSLog(@"Asteroid Position: (%0.2f,%0.2f)",pos.x,pos.y);
+            NSLog(@"Asteroid impulse: (%0.2f,%0.2f)",impulse.dx,impulse.dy);
+        }
         
         Asteroid* asteroid = [[Asteroid alloc] initWith: RAND_FROM_TO(0, 1)
                                                    size: 2
@@ -279,7 +339,7 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     (contact.bodyA.categoryBitMask & shipCategory) != 0;
     
     if(asteroidType1Collision || asteroidType2Collision) {
-        //NSLog(@"Shot asteroid");
+        if(_DEBUG) { NSLog(@"Shot asteroid"); }
 
         Asteroid* shotAsteroid = (Asteroid*)  (asteroidType1Collision ? contact.bodyA.node : contact.bodyB.node);
         
@@ -313,8 +373,10 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
             CGVector aImpulse1 = CGVectorMultiplyByScalar(randVec1, randSpeed1);
             CGVector aImpulse2 = CGVectorMultiplyByScalar(randVec2, -randSpeed2);
             
-            //NSLog(@"aImpulse1: (%0.2f,%0.2f)", aImpulse1.dx, aImpulse1.dy);
-            //NSLog(@"aImpulse2: (%0.2f,%0.2f)", aImpulse2.dx, aImpulse2.dy);
+            if(_DEBUG) {
+                NSLog(@"aImpulse1: (%0.2f,%0.2f)", aImpulse1.dx, aImpulse1.dy);
+                NSLog(@"aImpulse2: (%0.2f,%0.2f)", aImpulse2.dx, aImpulse2.dy);
+            }
             
             Asteroid* smallerAsteroid1 = [[Asteroid alloc] initWith: shotAsteroid.type size: shotAsteroid.size - 1 position: pos1];
             smallerAsteroid1.zRotation = shotAsteroid.zRotation;
@@ -329,33 +391,57 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
             [smallerAsteroid2.physicsBody applyImpulse: aImpulse2];
         }
         
+        [self updateScore: shotAsteroid.size];
         [self.asteroidArr removeObject: shotAsteroid];
     
         [self removeChildrenInArray:[NSArray arrayWithObjects: contact.bodyA.node, contact.bodyB.node, nil]];
         
-        NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]);
-        if([self.asteroidArr count] == 0){
-            numAsteroidsToCreate++;
+        if(_DEBUG) { NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]); }
+        
+        if([self.asteroidArr count] == 0) {
+            if(numAsteroidsToCreate < MAX_NUM_ASTEROIDS) {
+                numAsteroidsToCreate++;
+            }
             [self createAsteroids: numAsteroidsToCreate];
         }
         
     }
     
     if(asteroidType3Collision || asteroidType4Collision) {
-        //NSLog(@"Spaceship crashed");
+        if(_DEBUG) { NSLog(@"Spaceship crashed"); }
+        if(self.spaceship != nil){
         
-        Explosion* explode = [[Explosion alloc] initWithSize: SHIP_SIZE];
-        explode.position = self.spaceship.position;
-        [self addChild: explode];
-        
-        [self removeChildrenInArray:[NSArray arrayWithObject: self.spaceship]];
-        self.spaceship = nil;
-        
-        [NSTimer scheduledTimerWithTimeInterval: 1.0f
-                                         target: self
-                                       selector: @selector(createAndDisplayShip)
-                                       userInfo: nil
-                                        repeats: NO];
+            self.numLives--;
+            if([self.lifeIcons count]  > 0){
+                NSArray *iconToRemove = [NSArray arrayWithObject: [self.lifeIcons objectAtIndex: [self.lifeIcons count] - 1]];
+                [self removeChildrenInArray: iconToRemove];
+                [self.lifeIcons removeObjectsInArray: iconToRemove];
+            }
+            Explosion* explode = [[Explosion alloc] initWithSize: SHIP_SIZE];
+            explode.position = self.spaceship.position;
+            [self addChild: explode];
+            
+            [self removeChildrenInArray:[NSArray arrayWithObject: self.spaceship]];
+            self.spaceship = nil;
+            
+            if(self.numLives > 0) {
+                [NSTimer scheduledTimerWithTimeInterval: 1.0f
+                                                 target: self
+                                               selector: @selector(createAndDisplayShip)
+                                               userInfo: nil
+                                                repeats: NO];
+            } else{
+                if (self.playerScore > highScore){
+                    
+                    [[NSUserDefaults standardUserDefaults] setInteger: self.playerScore forKey:@"HighScore"];
+                    
+                }
+                [self removeAllChildren];
+                self.startGameButton.hidden = false;
+                
+                [self showMenuScreen];
+            }
+        }
         
     }
     
@@ -382,13 +468,11 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
         }
         
         if (self.leftButton.wasPressed) {
-            //NSLog(@"ship rotation: %f", self.spaceship.zRotation);
             SKAction *action = [SKAction rotateByAngle:0.2 duration:0.1];
             [self.spaceship runAction:[SKAction repeatAction:action count:1]];
         }
         
         if (self.rightButton.wasPressed) {
-            //NSLog(@"ship rotation: %f", self.spaceship.zRotation);
             SKAction *action = [SKAction rotateByAngle:-0.2 duration:0.1];
             [self.spaceship runAction:[SKAction repeatAction:action count:1]];
         }
@@ -423,6 +507,33 @@ static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     // bounce off nothing
     border.physicsBody.collisionBitMask = 0;
     [self addChild:border];
+}
+
+- (void) updateScore: (int) asteroidSize {
+    if(asteroidSize == ASTEROID_SMALL){
+        self.playerScore += ASTEROID_SMALL_VALUE;
+    }else if(asteroidSize == ASTEROID_MED){
+        self.playerScore += ASTEROID_MED_VALUE;
+    }else if(asteroidSize == ASTEROID_LARGE){
+        self.playerScore += ASTEROID_LARGE_VALUE;
+    }
+    if(self.playerScore > extraLifeThreshold){
+        extraLifeThreshold += EXTRA_LIFE_THRESHOLD;
+        [self addLife];
+    }
+    [self displayScore];
+}
+
+- (void) addLife {
+    self.numLives++;
+    LifeIcon* icon = [[LifeIcon alloc] initIconWithSize: (3 * SHIP_SIZE / 4)];
+    icon.position = CGPointMake((7 * self.size.width / 32) + ([self.lifeIcons count] - 1) * SHIP_SIZE, (52 * self.size.height / 64));
+    [self.lifeIcons addObject: icon];
+    [self addChild: icon];
+}
+
+- (void) displayScore {
+    self.scoreLabel.text = [NSString stringWithFormat:@"%ld", self.playerScore];
 }
 
 @end

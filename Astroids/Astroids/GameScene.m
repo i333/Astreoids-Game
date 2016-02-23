@@ -255,7 +255,7 @@ static BOOL _DEBUG = NO;
             NSLog(@"Asteroid impulse: (%0.2f,%0.2f)",impulse.dx,impulse.dy);
         }
         
-        Asteroid* asteroid = [[Asteroid alloc] initWith: RAND_FROM_TO(0, 1)
+        Asteroid* asteroid = [[Asteroid alloc] initWith: RAND_FROM_TO(0, 2)
                                                    size: 2
                                                position: pos];
         

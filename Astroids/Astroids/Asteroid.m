@@ -107,7 +107,39 @@
             CGPathAddLineToPoint(pathToDraw, NULL,  -self.radius , self.radius / 3);
             
         }else if(self.type == TYPE_THREE){
-            CGPathAddEllipseInRect(pathToDraw , NULL , CGRectMake(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius) );
+            CGPathMoveToPoint(pathToDraw, NULL, -self.radius , self.radius / 3);
+            CGPathAddLineToPoint(pathToDraw, NULL, -(self.radius / 2), (5 * self.radius / 6));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, -(self.radius / 2), (5 * self.radius / 6));
+            CGPathAddLineToPoint(pathToDraw, NULL, (self.radius / 6), (2 * self.radius / 3));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, (self.radius / 6), (2 * self.radius / 3));
+            CGPathAddLineToPoint(pathToDraw, NULL, (self.radius / 2), (5 * self.radius / 6));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, (self.radius / 2), (5 * self.radius / 6));
+            CGPathAddLineToPoint(pathToDraw, NULL, (3 * self.radius / 4), (self.radius / 2));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, (3 * self.radius / 4), (self.radius / 2));
+            CGPathAddLineToPoint(pathToDraw, NULL, (self.radius / 2), 0);
+            
+            CGPathMoveToPoint(pathToDraw, NULL, (self.radius / 2), 0);
+            CGPathAddLineToPoint(pathToDraw, NULL, (3 * self.radius / 4), -(self.radius / 2));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, (3 * self.radius / 4), -(self.radius / 2));
+            CGPathAddLineToPoint(pathToDraw, NULL, (self.radius / 6), -(3 * self.radius / 4));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, (self.radius / 6), -(3 * self.radius / 4));
+            CGPathAddLineToPoint(pathToDraw, NULL, -(self.radius / 4), -(self.radius / 2));
+            
+            CGPathMoveToPoint(pathToDraw, NULL, -(self.radius / 4), -(self.radius / 2));
+            CGPathAddLineToPoint(pathToDraw, NULL, -(self.radius / 2), -(5 * self.radius / 6));
+            
+            CGPathMoveToPoint(pathToDraw, NULL,  -(self.radius / 2), -(5 * self.radius / 6));
+            CGPathAddLineToPoint(pathToDraw, NULL, -self.radius, 0);
+            
+            CGPathMoveToPoint(pathToDraw, NULL,  -self.radius, 0);
+            CGPathAddLineToPoint(pathToDraw, NULL, -self.radius , self.radius / 3);
+            
         }else{
             CGPathAddEllipseInRect(pathToDraw , NULL , CGRectMake(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius) );
         }

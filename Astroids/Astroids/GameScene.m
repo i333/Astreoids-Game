@@ -27,8 +27,8 @@
 
 static NSInteger highScore;
 
-static int numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
-static long extraLifeThreshold = EXTRA_LIFE_THRESHOLD;
+static int numAsteroidsToCreate;
+static long extraLifeThreshold;
 
 static BOOL _DEBUG = NO;
 
@@ -50,6 +50,8 @@ static BOOL _DEBUG = NO;
     if(!self.asteroidArr) {
         self.asteroidArr = [NSMutableArray array];
     }
+    numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
+    extraLifeThreshold = EXTRA_LIFE_THRESHOLD;
     self.playerScore = 0;
     self.numLives = INIT_NUM_LIVES;
 }
@@ -395,7 +397,7 @@ static BOOL _DEBUG = NO;
     
         [self removeChildrenInArray:[NSArray arrayWithObjects: contact.bodyA.node, contact.bodyB.node, nil]];
         
-        if(_DEBUG) { NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]); }
+        if(!_DEBUG) { NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]); }
         
         if([self.asteroidArr count] == 0) {
             if(numAsteroidsToCreate < MAX_NUM_ASTEROIDS) {

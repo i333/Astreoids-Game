@@ -21,7 +21,7 @@
         CGPathAddEllipseInRect(circlePath , NULL , CGRectMake(-self.size.width/2, -self.size.height/2, self.size.width, self.size.height) );
         self.path = circlePath;
         
-        [self setFillColor:[SKColor redColor]];
+        [self setFillColor:[SKColor whiteColor]];
         
         SKAction *firingWait = [SKAction waitForDuration:0.01f];
         SKAction *checkFiringButtons = [SKAction runBlock:^{

@@ -47,9 +47,7 @@ static BOOL _DEBUG = NO;
 
 - (void) initializeGame
 {
-    if(!self.asteroidArr) {
-        self.asteroidArr = [NSMutableArray array];
-    }
+    self.asteroidArr = [[NSMutableArray alloc] init];
     numAsteroidsToCreate = INIT_NUM_ASTEROIDS;
     extraLifeThreshold = EXTRA_LIFE_THRESHOLD;
     self.playerScore = 0;
@@ -129,9 +127,7 @@ static BOOL _DEBUG = NO;
     self.scoreLabel.position = CGPointMake(self.size.width / 4, (53 * self.size.height / 64));
     [self addChild: self.scoreLabel];
     
-    if(!self.lifeIcons) {
-        self.lifeIcons = [NSMutableArray array];
-    }
+    self.lifeIcons = [[NSMutableArray alloc] init];
     for(int i = 0; i < self.numLives; i++) {
         LifeIcon* icon = [[LifeIcon alloc] initIconWithSize: (3 * SHIP_SIZE / 4)];
         icon.position = CGPointMake((7 * self.size.width / 32) + i * SHIP_SIZE, (52 * self.size.height / 64));
@@ -397,7 +393,7 @@ static BOOL _DEBUG = NO;
     
         [self removeChildrenInArray:[NSArray arrayWithObjects: contact.bodyA.node, contact.bodyB.node, nil]];
         
-        if(!_DEBUG) { NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]); }
+        if(_DEBUG) { NSLog(@"Asteroid count: %lu", (unsigned long)[self.asteroidArr count]); }
         
         if([self.asteroidArr count] == 0) {
             if(numAsteroidsToCreate < MAX_NUM_ASTEROIDS) {
@@ -435,6 +431,8 @@ static BOOL _DEBUG = NO;
                                                userInfo: nil
                                                 repeats: NO];
             }else {
+                
+                if(_DEBUG) { NSLog(@"reset"); }
                 if (self.playerScore > highScore) {
                     
                     [[NSUserDefaults standardUserDefaults] setInteger: self.playerScore forKey:@"HighScore"];

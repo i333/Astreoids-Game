@@ -47,9 +47,14 @@ static BOOL _DEBUG = NO;
 
 - (void) initializeGame
 {
-    self.asteroidArr = [NSMutableArray array];
+    if(!self.asteroidArr){
+        self.asteroidArr = [NSMutableArray array];
+    }
     self.playerScore = 0;
     self.numLives = INIT_NUM_LIVES;
+}
+
+- (void) update:(NSTimeInterval)currentTime {
 }
 
 -(void)showMenuScreen
@@ -97,11 +102,13 @@ static BOOL _DEBUG = NO;
 
 -(void) startGameButtonClicked:(UIButton*)sender
 {
-    [self runAction:[SKAction playSoundFileNamed:@"beat1.wav" waitForCompletion:NO]];
-    
+
     self.startGameButton.hidden = true;
     
     [self removeAllChildren];
+    [self removeAllActions];
+    
+    [self runAction:[SKAction playSoundFileNamed:@"beat1.wav" waitForCompletion:NO]];
     
     [self createWrappingBorders];
     
@@ -123,7 +130,9 @@ static BOOL _DEBUG = NO;
     self.scoreLabel.position = CGPointMake(self.size.width / 4, (53 * self.size.height / 64));
     [self addChild: self.scoreLabel];
     
-    self.lifeIcons = [NSMutableArray array];
+    if(!self.lifeIcons){
+        self.lifeIcons = [NSMutableArray array];
+    }
     for(int i = 0; i < self.numLives; i++) {
         LifeIcon* icon = [[LifeIcon alloc] initIconWithSize: (3 * SHIP_SIZE / 4)];
         icon.position = CGPointMake((7 * self.size.width / 32) + i * SHIP_SIZE, (52 * self.size.height / 64));
@@ -271,20 +280,20 @@ static BOOL _DEBUG = NO;
 
 - (void) createWrappingBorders
 {
-    [self addWrappingBorder: CGPointMake(0,self.size.height)
-                    toPoint: CGPointMake(self.size.width,self.size.height)
+    [self addWrappingBorder: CGPointMake(0, self.size.height)
+                    toPoint: CGPointMake(self.size.width, self.size.height)
                withCategory: topCategory];
     
     [self addWrappingBorder: CGPointMake(0.0f,0.0f)
-                    toPoint:CGPointMake(self.size.width,0.0f)
+                    toPoint:CGPointMake(self.size.width, 0.0f)
                withCategory: bottomCategory];
     
-    [self addWrappingBorder: CGPointMake(0.0f,0.0f)
-                    toPoint:CGPointMake(0.0f,self.size.height)
+    [self addWrappingBorder: CGPointMake(0.0f, 0.0f)
+                    toPoint:CGPointMake(0.0f, self.size.height)
                withCategory: leftCategory];
     
-    [self addWrappingBorder: CGPointMake(self.size.width,0.0f)
-                    toPoint:CGPointMake(self.size.width,self.size.height)
+    [self addWrappingBorder: CGPointMake(self.size.width, 0.0f)
+                    toPoint:CGPointMake(self.size.width, self.size.height)
                withCategory: rightCategory];
 }
 
@@ -435,14 +444,18 @@ static BOOL _DEBUG = NO;
                                                userInfo: nil
                                                 repeats: NO];
             } else{
-                [self runAction:[SKAction playSoundFileNamed:@"beat2.wav" waitForCompletion:NO]];
-                
                 if (self.playerScore > highScore){
                     
                     [[NSUserDefaults standardUserDefaults] setInteger: self.playerScore forKey:@"HighScore"];
                     
                 }
                 [self removeAllChildren];
+                [self removeAllActions];
+                
+                [self runAction:[SKAction playSoundFileNamed:@"beat2.wav" waitForCompletion:NO]];
+                
+                [self.asteroidArr removeAllObjects];
+                [self.lifeIcons removeAllObjects];
                 self.startGameButton.hidden = false;
                 
                 [self showMenuScreen];
@@ -476,13 +489,13 @@ static BOOL _DEBUG = NO;
         }
         
         if (self.leftButton.wasPressed) {
-            SKAction *action = [SKAction rotateByAngle:0.2 duration:0.1];
-            [self.spaceship runAction:[SKAction repeatAction:action count:1]];
+            SKAction *action = [SKAction rotateByAngle: 0.2 duration:0.1];
+            [self.spaceship runAction:[SKAction repeatAction: action count:1]];
         }
         
         if (self.rightButton.wasPressed) {
-            SKAction *action = [SKAction rotateByAngle:-0.2 duration:0.1];
-            [self.spaceship runAction:[SKAction repeatAction:action count:1]];
+            SKAction *action = [SKAction rotateByAngle: -0.2 duration:0.1];
+            [self.spaceship runAction:[SKAction repeatAction: action count:1]];
         }
     }
     
